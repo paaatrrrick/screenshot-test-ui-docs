@@ -1,0 +1,39 @@
+---
+title: "Team"
+description: "Invite teammates, assign roles, and enforce two-factor authentication."
+icon: "users"
+---
+
+The **Team** page lists every member of the organization with their role, status, two-factor state, join date, and last activity. The header shows seats used against the plan's seat count.
+
+## Inviting members
+
+1. Click **Invite members**.
+2. Enter one or more email addresses, separated by commas or new lines.
+3. Choose a role. The role applies to everyone in this batch; you can change individuals afterward.
+4. Click **Send invites**.
+
+Invitees appear immediately with the **Invited** status and count toward seats. Invitations expire after 7 days; use **Resend invite** in the row menu to send a fresh one.
+
+## Changing roles
+
+Use the role dropdown inline in the table. The change takes effect on the member's next request and is recorded in the [audit log](/organization/audit-log) as `member.role_change`. The organization owner's role can't be changed here; ownership is transferred from [Settings → General](/organization/settings).
+
+See [Roles and permissions](/reference/roles-and-permissions) for what each role can do.
+
+## Two-factor authentication
+
+The shield icon shows whether a member has 2FA enabled. When **Require two-factor authentication** is on in [Settings → Security](/organization/settings#security), members without it have a 14-day grace period, after which they are locked out until they enroll. Hover the amber shield to see how much of the grace period remains.
+
+## Suspending and removing
+
+From the row menu:
+
+- **Sign out everywhere** revokes all of the member's sessions and API keys they created. Use it first if you suspect a compromised account.
+- **Remove from organization** deletes their membership. Resources they created (projects, flags, keys) remain and are attributed to them in history.
+
+Contractors whose engagement has ended are usually **suspended** rather than removed so their history stays intact. Suspended members can't sign in but still appear in the list and in audit entries.
+
+## Filtering
+
+Search matches names and emails. The role filter narrows to one role, which is useful for auditing who has **Admin** access.

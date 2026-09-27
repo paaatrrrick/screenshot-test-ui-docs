@@ -1,0 +1,53 @@
+---
+title: "Glossary"
+description: "Terms used across Orbit and these docs."
+icon: "book-open"
+---
+
+**Deployment**
+: One immutable build of a specific commit. Identified by an ID like `dpl_8f2k1a`.
+
+**Environment**
+: One of `production`, `preview`, `staging`, or `development`. Determines which environment variables a deployment receives and which flag switches apply.
+
+**Escalation**
+: Paging a secondary on-call when an incident or monitor alert isn't acknowledged within a set time.
+
+**Feature flag**
+: A named value your code reads at runtime, evaluated at the edge, that can change without a deployment.
+
+**Incident**
+: A tracked disruption with severity, status, assignee, and timeline. IDs look like `inc_204`.
+
+**Monitor**
+: A scheduled synthetic HTTP check run from one or more regions.
+
+**Organization**
+: The top-level tenant that owns projects, members, keys, webhooks, and billing.
+
+**Preview deployment**
+: A deployment from a non-production branch, served at a generated `*.orbit.app` URL.
+
+**Primary domain**
+: The canonical hostname for a project. Other domains redirect to it.
+
+**Project**
+: One Git repository plus its deployments, variables, domains, and settings. Identified by a slug like `atlas-api`.
+
+**Promotion**
+: Making an existing preview deployment the production deployment without rebuilding.
+
+**Rollback**
+: Pointing production at an earlier **Ready** deployment.
+
+**Rollout**
+: The percentage of users who receive `true` from a flag after targeting rules are evaluated.
+
+**Scope**
+: A permission attached to an API key, such as `deployments:write`.
+
+**Sensitive variable**
+: An environment variable whose value is masked in the UI and omitted from API responses.
+
+**Targeting rule**
+: A condition on a user attribute that decides a flag's value before the rollout percentage applies.

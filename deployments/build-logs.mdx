@@ -1,0 +1,41 @@
+---
+title: "Build logs"
+description: "Read the build output, find the failing line, and download the full log."
+icon: "terminal"
+---
+
+Every deployment keeps its complete build output. Open a deployment and stay on the **Build logs** tab.
+
+## Reading a failed build
+
+When a build fails, the deployment page shows a red banner with the first error line, and the log panel highlights every `ERROR` line in red. Warnings are amber; `DEBUG` lines are dimmed.
+
+<Frame caption="A failed build. The type error on line 11 caused the build command to exit with status 1.">
+  <img src="/images/screenshots/03-deployment-build-error.png" alt="Build log terminal showing a TypeScript error followed by build failed" />
+</Frame>
+{/* SCREENSHOT #3 — `/deployments/dpl_7d3m0q`, scroll to and crop the `[data-testid="build-logs"]` panel. See SCREENSHOTS.md. */}
+
+Common failure patterns:
+
+| Log line | Likely cause |
+| --- | --- |
+| `error TS2339` / `error TS2322` | A type error. Run `tsc --noEmit` locally to reproduce |
+| `Command "… build" exited with 1` | The build script failed; look at the lines immediately above |
+| `ERR_PNPM_OUTDATED_LOCKFILE` | `pnpm-lock.yaml` is out of date; run `pnpm install` and commit |
+| `Module not found` | A dependency is missing from `package.json` or the import path is wrong on a case-sensitive filesystem |
+| `Build exceeded maximum duration` | The build ran past 45 minutes. Check for a hung step or enable caching |
+
+## Toolbar
+
+- **Filter logs** — narrows to lines containing the text. The line numbers keep their original values so you can reference them.
+- **Timestamps** — toggles the elapsed-time column.
+- **Wrap lines** — wraps long lines instead of scrolling horizontally.
+- **Download** — saves the full, unfiltered log as `build-log.txt`.
+
+## Live builds
+
+While a deployment is **Building**, new lines append in real time and a spinner sits at the bottom of the panel. Queued deployments show "Waiting for build to start…" until a builder picks them up.
+
+## Runtime logs
+
+The **Runtime logs** tab links into the [Log explorer](/logs/explorer) pre-filtered to this deployment. Build logs and runtime logs are retained for 30 days on the Business plan.

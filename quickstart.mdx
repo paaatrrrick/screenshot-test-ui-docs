@@ -1,0 +1,61 @@
+---
+title: "Quickstart"
+description: "Go from an empty organization to a live deployment in about five minutes."
+icon: "zap"
+---
+
+This guide walks through importing a repository, configuring the build, and watching the first deployment go live.
+
+## Before you begin
+
+- An Orbit account with the **Developer** role or higher. See [Roles and permissions](/reference/roles-and-permissions).
+- A Git repository on GitHub. Private repositories require the Orbit GitHub app, which an **Admin** can install from [Settings → Integrations](/organization/settings#integrations).
+
+## Create a project
+
+<Steps>
+  <Step title="Open the New project dialog">
+    From **Projects**, click **New project** in the top right. The dialog has three steps: import, configure, review.
+  </Step>
+  <Step title="Import the repository">
+    Enter the repository in `owner/name` form (for example `orbit-labs/atlas-api`) and give the project a name. The name becomes the project slug and the default `*.orbit.app` hostname.
+  </Step>
+  <Step title="Configure the build">
+    Pick a framework preset, a region, and confirm the build command and output directory. Presets fill in sensible defaults; you can change them later in [project settings](/projects/settings).
+
+    <Frame caption="Step 2 of the New project dialog: framework preset, region, and build settings.">
+      <img src="/images/screenshots/placeholder-new-project-step-2.png" alt="New project dialog on the configure build step" />
+    </Frame>
+    {/* Optional extra screenshot — `/projects?new=1`, click Continue once. Not one of the 12 required captures. */}
+  </Step>
+  <Step title="Review and create">
+    Confirm the summary and click **Create project**. Orbit queues the first production deployment immediately.
+  </Step>
+</Steps>
+
+## Watch the deployment
+
+Open the new project and switch to the **Deployments** tab. The newest row shows the pipeline stage — **Queued**, **Cloning**, **Installing**, **Building**, **Uploading**, **Ready** — and updates in real time. Click the row to see the [build logs](/deployments/build-logs).
+
+<Tip>
+Builds usually finish in under a minute for cached projects. The first build of a repository has no cache and can take two to three times longer.
+</Tip>
+
+## Add environment variables
+
+Most services need secrets before the first deployment is useful. Go to the **Environment** tab, click **Add variable**, and choose which environments receive it. Variables marked **Sensitive** are masked in the UI and never returned by the API. Details are in [Environment variables](/projects/environment-variables).
+
+## Point a domain at it
+
+Production deployments are reachable at `<slug>.orbit.app` right away. To use your own domain, add it on the **Domains** tab and create the CNAME record Orbit shows you. SSL is provisioned automatically once DNS verifies. See [Domains](/projects/domains).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Set up a monitor" icon="activity" href="/monitoring/monitors">
+    Get alerted when your health endpoint stops responding.
+  </Card>
+  <Card title="Create a feature flag" icon="flag" href="/feature-flags/overview">
+    Ship the next change dark and roll it out gradually.
+  </Card>
+</CardGroup>

@@ -1,0 +1,56 @@
+---
+title: "API keys"
+description: "Create scoped keys for CI, Terraform, and integrations. The full key is shown exactly once."
+icon: "key-round"
+---
+
+API keys authenticate the Orbit CLI, the Terraform provider, and direct calls to the REST API. Keys belong to the organization, not to the member who created them, so they keep working when people leave.
+
+## Creating a key
+
+1. Click **Create key**.
+2. Name it after what will use it, such as `CI — GitHub Actions`.
+3. Choose an expiration: 30 days, 90 days, 1 year, or never. Shorter is safer; CI systems can rotate keys automatically.
+4. Tick the scopes it needs. Prefer read scopes; a deploy key needs only `deployments:write` and `projects:read`.
+5. Click **Create key**.
+
+Orbit then shows the full key once. Copy it into your secret manager before closing the dialog; after that only the prefix (`orb_live_4kQ2`) is visible anywhere.
+
+<Frame caption="The one-time reveal. Once this dialog closes the full key can't be retrieved.">
+  <img src="/images/screenshots/08-api-key-secret.png" alt="Save your API key dialog showing a freshly generated key with a copy button and a warning" />
+</Frame>
+{/* SCREENSHOT #8 — `/api-keys?new=1`, type a name, click Create key, capture the reveal dialog. The key value is random. See SCREENSHOTS.md. */}
+
+<Warning>
+Anyone holding a key can act with its scopes. Never commit keys to a repository or paste them in chat.
+</Warning>
+
+## Scopes
+
+| Scope | Grants |
+| --- | --- |
+| `projects:read` / `projects:write` | List and inspect projects / create, update, delete them |
+| `deployments:read` / `deployments:write` | View deployments / trigger, cancel, promote, and roll back |
+| `env:read` / `env:write` | Read non-sensitive variables / create and update variables |
+| `logs:read` | Query the log explorer |
+| `metrics:read` | Read usage and monitor data |
+| `monitors:write` | Create and modify monitors |
+| `members:read` / `members:write` | List members / invite, change roles, remove |
+| `billing:read` | Read invoices and usage |
+| `*` | Everything. Only for local development keys with short expirations |
+
+Keys carry the `orb_live_` prefix for production or `orb_test_` for the sandbox environment.
+
+## Using a key
+
+```bash
+export ORBIT_API_KEY=orb_live_…
+orbit deploy --project atlas-api
+
+curl https://api.orbit.dev/v1/projects \
+  -H "Authorization: Bearer $ORBIT_API_KEY"
+```
+
+## Expiration and revocation
+
+Expired keys are rejected and shown with a red **Expired** badge; an alert at the top of the page reminds you to revoke or replace them. Revoke a key with the trash icon; revocation is immediate and can't be undone. Both actions appear in the [audit log](/organization/audit-log).

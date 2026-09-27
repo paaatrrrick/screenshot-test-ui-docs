@@ -1,0 +1,49 @@
+---
+title: "Usage"
+description: "See requests, bandwidth, and build minutes against your plan limits, broken down by project."
+icon: "bar-chart-3"
+---
+
+The **Usage** page shows what your organization has consumed in the current billing period and projects the cost at the end of it.
+
+## Summary cards
+
+- **Estimated cost** — plan price plus any overage so far. Hover the delta to see the change from last period.
+- **Requests**, **Bandwidth**, **Build minutes** — consumption against the included quota.
+
+## Traffic chart
+
+Daily requests and bandwidth across every project. Toggle series with the legend. The range selector switches between the last 7 days, 30 days, or the full billing period.
+
+<Frame caption="The traffic chart in dark mode. Series colors adapt to the theme.">
+  <img src="/images/screenshots/12-usage-chart-dark.png" alt="Usage traffic area chart rendered in dark mode showing requests and bandwidth" />
+</Frame>
+{/* SCREENSHOT #12 — `/usage`, click the theme toggle, wait for the chart animation to finish, crop the Traffic card. See SCREENSHOTS.md. */}
+
+## Plan limits
+
+A progress bar per quota. Bars turn amber at 90% so you can act before hitting a limit. What happens at 100% depends on the quota:
+
+| Quota | At 100% |
+| --- | --- |
+| Requests, bandwidth | Overage is billed at the plan's per-unit rate; nothing is throttled |
+| Build minutes | New builds queue until the period resets or you upgrade |
+| Log retention | Oldest logs are dropped |
+| Monitors, seats | Creating more requires an upgrade |
+
+Email alerts fire at 80% and 100% of any quota; configure them in [Settings → Notifications](/organization/settings#notifications).
+
+## Per-project breakdown
+
+The table at the bottom attributes requests, bandwidth, build minutes, and cost to each project so you can see which service drives spend. Paused projects and projects with no traffic are hidden.
+
+## Exporting
+
+**Export CSV** on the audit log covers activity; for usage data, use the API:
+
+```bash
+curl https://api.orbit.dev/v1/usage?period=current \
+  -H "Authorization: Bearer $ORBIT_API_KEY"
+```
+
+Requires an API key with the `billing:read` scope.

@@ -1,0 +1,41 @@
+---
+title: "Audit log"
+description: "A tamper-evident record of every change made by members and API keys, retained for a year."
+icon: "radio"
+---
+
+The **Audit log** records who did what, to which resource, from where. Entries are immutable and retained for 365 days on the Business plan.
+
+## Columns
+
+| Column | Content |
+| --- | --- |
+| **Time** | UTC timestamp of the action |
+| **Actor** | The member, or the API key name for automated actions |
+| **Action** | A dotted identifier such as `deployment.rollback` or `member.role_change` |
+| **Target** | The resource affected |
+| **Details** | A short human-readable description, including before/after values where relevant |
+| **IP** | Source address of the request |
+
+## Filtering
+
+Search matches the target, details, and action text. The category filter narrows by action prefix (`deployment`, `member`, `api_key`, `flag`, `env`, `settings`, `billing`, `project`, `monitor`, `webhook`, `incident`, `domain`), and the actor filter narrows to one person or key.
+
+## Recorded actions
+
+Not exhaustive, but the most common:
+
+| Action | Recorded when |
+| --- | --- |
+| `deployment.create`, `.cancel`, `.rollback`, `.promote` | A build is triggered, canceled, rolled back, or promoted |
+| `env.create`, `.update`, `.delete`, `.reveal` | A variable changes, or a sensitive value is revealed in the UI |
+| `flag.create`, `.update`, `.delete` | A flag's definition, rules, rollout, or environment switches change |
+| `member.invite`, `.role_change`, `.suspend`, `.remove` | Team changes |
+| `api_key.create`, `.revoke` | Keys are created or revoked |
+| `webhook.create`, `.disable`, `.delete` | Endpoints change, including automatic disabling |
+| `settings.update`, `billing.plan_change` | Organization settings or plan change |
+| `project.create`, `.delete`, `.transfer` | Projects are created, deleted, or moved |
+
+## Export
+
+**Export CSV** starts an asynchronous export of the filtered range and emails a download link. For continuous export, subscribe a [webhook](/organization/webhooks) to `audit.entry` or enable the Datadog integration.

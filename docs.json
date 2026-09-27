@@ -1,0 +1,93 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Orbit",
+  "description": "Orbit is a deployment and observability platform for developers. Deploy from Git, watch logs and monitors, roll out features with flags, and keep your team in sync.",
+  "colors": {
+    "primary": "#4F46E5",
+    "light": "#818CF8",
+    "dark": "#4338CA"
+  },
+  "favicon": "/favicon.svg",
+  "icons": {
+    "library": "lucide"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": ["index", "quickstart", "navigation"]
+          },
+          {
+            "group": "Projects",
+            "pages": ["projects/overview", "projects/environment-variables", "projects/domains", "projects/settings"]
+          },
+          {
+            "group": "Deployments",
+            "pages": ["deployments/overview", "deployments/build-logs", "deployments/rollbacks-and-promotion"]
+          },
+          {
+            "group": "Logs",
+            "pages": ["logs/explorer"]
+          },
+          {
+            "group": "Feature flags",
+            "pages": ["feature-flags/overview", "feature-flags/targeting"]
+          },
+          {
+            "group": "Monitoring",
+            "pages": ["monitoring/monitors", "monitoring/incidents", "monitoring/usage"]
+          },
+          {
+            "group": "Organization",
+            "pages": [
+              "organization/team",
+              "organization/api-keys",
+              "organization/webhooks",
+              "organization/audit-log",
+              "organization/settings"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Reference",
+        "groups": [
+          {
+            "group": "Reference",
+            "pages": ["reference/roles-and-permissions", "reference/webhook-events", "reference/glossary"]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Dashboard",
+          "href": "https://screenshot-test-ui.vercel.app",
+          "icon": "layout-dashboard"
+        },
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/paaatrrrick/screenshot-test-ui",
+          "icon": "github"
+        }
+      ]
+    }
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Open dashboard",
+      "href": "https://screenshot-test-ui.vercel.app"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/paaatrrrick/screenshot-test-ui"
+    }
+  }
+}

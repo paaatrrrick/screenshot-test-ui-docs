@@ -1,0 +1,64 @@
+---
+title: "Webhooks"
+description: "Receive signed HTTP callbacks when deployments finish, monitors fail, flags change, or members join."
+icon: "webhook"
+---
+
+Webhooks push events to your own endpoints so you can post to chat, sync a warehouse, or trigger downstream jobs.
+
+## Adding an endpoint
+
+1. Click **Add endpoint**.
+2. Enter the HTTPS URL and a description.
+3. Select events. **Select all** on a group subscribes to every event in it.
+4. Leave **Sign payloads** on unless your receiver can't verify signatures.
+5. Click **Add endpoint**. Orbit sends a `ping` event immediately so you can confirm delivery.
+
+Each endpoint has a **Send test** button that delivers a synthetic event of the first subscribed type.
+
+## Payload
+
+```json
+{
+  "id": "evt_4x1",
+  "type": "deployment.ready",
+  "createdAt": "2026-09-27T13:30:00Z",
+  "data": {
+    "deploymentId": "dpl_8f2k1a",
+    "projectSlug": "atlas-api",
+    "environment": "production",
+    "url": "https://atlas-api-9f3c2ab.orbit.app",
+    "commit": "9f3c2ab"
+  }
+}
+```
+
+The full list of event types and their `data` shapes is in the [webhook events reference](/reference/webhook-events).
+
+## Verifying signatures
+
+Signed requests include an `Orbit-Signature` header with a timestamp and an HMAC-SHA256 of `timestamp.body` using the endpoint's signing secret:
+
+```ts
+import { createHmac, timingSafeEqual } from "node:crypto";
+
+export function verify(secret: string, header: string, body: string) {
+  const [t, v1] = header.split(",").map((p) => p.split("=")[1]);
+  const expected = createHmac("sha256", secret).update(`${t}.${body}`).digest("hex");
+  return timingSafeEqual(Buffer.from(expected), Buffer.from(v1));
+}
+```
+
+The secret's prefix is shown under the endpoint's **Settings** tab; the full value is available once, at creation, or via **Roll secret**.
+
+## Deliveries and retries
+
+Expand an endpoint to see recent deliveries with event type, response status, duration, and time. Failed deliveries (any non-2xx, or no response within 30 seconds) are retried with exponential backoff up to 5 times over 6 hours. Click **Redeliver** to retry any delivery manually.
+
+After **3 consecutive failures** the endpoint is disabled automatically and a `webhook.disable` entry is written to the [audit log](/organization/audit-log). Fix the receiver, then re-enable with the switch on the endpoint row.
+
+## Tips
+
+- Respond with `2xx` quickly and do the work asynchronously; the 30-second timeout counts against you.
+- Deliveries can arrive out of order and, rarely, more than once. Use the event `id` to de-duplicate.
+- Disabled endpoints don't queue events; anything emitted while disabled is skipped.

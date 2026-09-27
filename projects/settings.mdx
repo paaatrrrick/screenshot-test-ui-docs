@@ -1,0 +1,41 @@
+---
+title: "Project settings"
+description: "Build configuration, deployment protection, and the irreversible actions in the danger zone."
+icon: "settings"
+---
+
+## General
+
+Change the project name, production branch, build command, and root directory. Renaming a project does **not** change its slug or `*.orbit.app` hostname; those are fixed at creation.
+
+## Deployment protection
+
+| Setting | Effect |
+| --- | --- |
+| **Password protect previews** | Visitors must enter a shared password to view preview deployments |
+| **Require Orbit login** | Only organization members can view previews |
+| **Auto-cancel superseded builds** | When a newer commit lands on the same branch, queued builds for older commits are canceled |
+| **Skew protection** | Old client assets stay available for 24 hours after a deployment so in-flight sessions don't break |
+
+## Danger zone
+
+The danger zone holds two actions that can't be undone.
+
+### Transfer project
+
+Moves the project, its deployments, domains, and variables to another organization. The receiving organization's owner must accept the transfer.
+
+### Delete project
+
+Deleting a project removes every deployment, domain, environment variable, and log line for it. Custom domains are released immediately and can be claimed by another project.
+
+To delete, click **Delete project** and type the project slug exactly as shown. The confirm button stays disabled until the text matches.
+
+<Frame caption="The delete confirmation. The destructive button enables only after the slug is typed correctly.">
+  <img src="/images/screenshots/09-delete-project-confirmation.png" alt="Delete project confirmation dialog with the project slug typed and the Delete button enabled" />
+</Frame>
+{/* SCREENSHOT #9 — `/projects/atlas-web?tab=settings` → Danger zone → Delete project → type "atlas-web". Capture the dialog. Do NOT click the confirm button. See SCREENSHOTS.md. */}
+
+<Warning>
+Only **Owners** and **Admins** can delete projects. There is no recovery period; export anything you need first.
+</Warning>

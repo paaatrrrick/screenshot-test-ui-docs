@@ -1,0 +1,53 @@
+---
+title: "Welcome to Orbit"
+sidebarTitle: "Introduction"
+description: "Deploy from Git, watch every request, and ship features behind flags — all from one dashboard."
+icon: "orbit"
+---
+
+Orbit is a deployment and observability platform for engineering teams. Connect a repository, and Orbit builds and deploys every push, routes traffic to your domains, streams structured logs, runs synthetic monitors from multiple regions, and pages the right people when something breaks.
+
+<Frame caption="The Overview page summarizes traffic, incidents, and recent deployments across your organization.">
+  <img src="/images/screenshots/01-overview-dashboard.png" alt="Orbit overview dashboard showing request volume, error rate, active incidents, and recent deployments" />
+</Frame>
+{/* SCREENSHOT #1 — full page of `/` after the traffic chart finishes animating. See SCREENSHOTS.md. */}
+
+## What Orbit does
+
+<CardGroup cols={2}>
+  <Card title="Projects & deployments" icon="rocket" href="/projects/overview">
+    Import a Git repository and get a production deployment plus a preview for every branch.
+  </Card>
+  <Card title="Logs" icon="scroll-text" href="/logs/explorer">
+    Structured, searchable logs from every service, streamed live and retained for 30 days.
+  </Card>
+  <Card title="Feature flags" icon="flag" href="/feature-flags/overview">
+    Toggle behavior per environment and target users with rules and percentage rollouts.
+  </Card>
+  <Card title="Monitors & incidents" icon="activity" href="/monitoring/monitors">
+    Synthetic checks from up to six regions, with alerting, escalation, and an incident timeline.
+  </Card>
+</CardGroup>
+
+## How it fits together
+
+An **organization** owns everything: projects, members, API keys, webhooks, and billing. Inside it:
+
+- A **project** maps to one Git repository and has its own environment variables, domains, and deployment history.
+- A **deployment** is one immutable build of a commit. Production deployments serve your primary domain; preview deployments get a unique URL per branch.
+- **Monitors** and **incidents** live at the organization level so a single on-call rotation can cover every service.
+- **Feature flags** are evaluated at the edge and can be flipped without redeploying.
+
+## Next steps
+
+<Steps>
+  <Step title="Create your first project">
+    Follow the [quickstart](/quickstart) to import a repository and trigger a deployment.
+  </Step>
+  <Step title="Learn the dashboard">
+    The [navigation guide](/navigation) covers the sidebar, command palette, and keyboard shortcuts.
+  </Step>
+  <Step title="Invite your team">
+    Add teammates and assign roles from the [Team page](/organization/team).
+  </Step>
+</Steps>

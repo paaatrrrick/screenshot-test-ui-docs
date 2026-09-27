@@ -1,0 +1,51 @@
+---
+title: "Organization settings"
+description: "General details, billing and plans, integrations, notification routing, and security policy."
+icon: "settings"
+---
+
+Settings are grouped into five tabs. Link directly to one with `?tab=<name>`, for example `/settings?tab=billing`.
+
+## General
+
+Organization name, URL slug, default region for new projects, and the timezone used for dates in the dashboard and digests. The **Danger zone** holds **Delete organization**, which requires the owner to confirm by email; all data is purged after 30 days.
+
+## Billing
+
+- **Current plan** with the option to upgrade, downgrade, or contact sales for Enterprise. Plan changes take effect immediately and are prorated.
+- **Payment method** managed through the Stripe billing portal.
+- **Invoices** for download as PDF.
+
+| | Team | Business | Enterprise |
+| --- | --- | --- | --- |
+| Price | $20/seat/mo | $60/seat/mo | Custom |
+| Projects | 10 | Unlimited | Unlimited |
+| Included requests | 100M | 1B | Custom |
+| Log retention | 7 days | 30 days | 90 days |
+| SSO and audit log | — | ✓ | ✓ |
+| SLA | — | — | 99.99% |
+
+## Integrations
+
+| Integration | Provides |
+| --- | --- |
+| **GitHub** | Repository import and deploy-on-push. Required for private repositories |
+| **Slack** | Deployment and incident messages; channel routing is under **Notifications** |
+| **PagerDuty** | Paging for critical incidents and monitor escalation |
+| **Datadog** | Forwarding of logs and metrics |
+| **Linear** | Create issues from incidents |
+
+**Connect** starts the provider's OAuth flow; **Configure** opens the integration's settings.
+
+## Notifications
+
+Per-member email preferences (deployment failures, incident updates, weekly digest, usage alerts, product updates) and organization-wide **Slack routing**. Expand a routing rule to change its channel and message template; templates support `{{event}}`, `{{project}}`, `{{actor}}`, and `{{url}}`.
+
+## Security
+
+- **Require two-factor authentication** with a 14-day grace period for existing members.
+- **SAML single sign-on** status and identity provider.
+- **Session duration** — 1, 7, or 30 days.
+- **IP allowlist** — CIDR ranges allowed to reach the dashboard and API. Your current IP is shown so you don't lock yourself out.
+
+Every change on this page is written to the [audit log](/organization/audit-log) as `settings.update`.

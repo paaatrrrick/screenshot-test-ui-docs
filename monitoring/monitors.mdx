@@ -1,0 +1,65 @@
+---
+title: "Monitors"
+description: "Synthetic HTTP checks from multiple regions with latency thresholds, alert routing, and escalation."
+icon: "activity"
+---
+
+A monitor requests a URL on a schedule from the regions you choose and alerts when the response is wrong, slow, or missing.
+
+## The Monitors page
+
+Summary cards show total monitors, how many are up or down, and average 30-day uptime. The table lists each monitor with status, uptime, average latency, interval, regions, and last check. Click a row for the detail page; the row menu offers **Pause**/**Resume**, **Run check now**, and **Delete**.
+
+| Status | Meaning |
+| --- | --- |
+| **Up** | The last check passed in every region |
+| **Degraded** | Passing, but latency exceeded the threshold |
+| **Down** | Failed the configured number of consecutive checks |
+| **Paused** | Not running; no alerts |
+
+## Creating a monitor
+
+Click **Create monitor** to open the four-step wizard. **Continue** stays disabled until the current step is valid.
+
+<Steps>
+  <Step title="Endpoint">
+    Name, HTTP method, and URL. **Advanced request options** expands to add headers, a request body for `POST`, and toggles for following redirects and verifying TLS certificates.
+  </Step>
+  <Step title="Schedule & regions">
+    Check interval (15 seconds to 5 minutes) and one or more regions. Intervals under a minute require the Business plan.
+  </Step>
+  <Step title="Alert conditions">
+    Expected status code, consecutive failures before alerting, a latency threshold, an optional string the body must contain, and which channels to notify. **Escalate if unacknowledged** pages the secondary on-call after a delay you choose.
+
+    <Frame caption="Step 3 of the wizard: failure conditions, notification channels, and escalation.">
+      <img src="/images/screenshots/06-monitor-alert-conditions.png" alt="Create monitor wizard on the Alert conditions step showing threshold slider and notification checkboxes" />
+    </Frame>
+    {/* SCREENSHOT #6 — `/monitors/new`, complete steps 1 and 2 with valid input, capture the wizard card on step 3. See SCREENSHOTS.md. */}
+  </Step>
+  <Step title="Review">
+    A summary of everything above. Click **Create monitor**; the first check runs within a minute.
+  </Step>
+</Steps>
+
+## Alert channels
+
+| Channel | Configured in |
+| --- | --- |
+| Slack channels | [Settings → Integrations](/organization/settings#integrations) |
+| PagerDuty | Settings → Integrations |
+| Email | Sends to the organization's ops address |
+| Webhook | Any [webhook endpoint](/organization/webhooks) subscribed to `monitor.down` |
+
+When a monitor goes **Down**, Orbit also opens an [incident](/monitoring/incidents) with the failing regions and response code, and resolves it automatically when the monitor recovers.
+
+## Monitor detail
+
+The detail page charts response time over 24 hours and daily uptime over 30 days, lists the most recent checks per region with status and latency, and shows the configuration. **Run check now** triggers an immediate check in every region.
+
+## Limits
+
+| Plan | Monitors | Minimum interval | Regions |
+| --- | --- | --- | --- |
+| Team | 10 | 60s | 2 |
+| Business | 25 | 15s | 6 |
+| Enterprise | Unlimited | 10s | 6 + private locations |

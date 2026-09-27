@@ -1,0 +1,49 @@
+---
+title: "Incidents"
+description: "Track a disruption from detection to resolution with severity, ownership, and a shared timeline."
+icon: "shield-alert"
+---
+
+An incident is a record of something being wrong, who is handling it, and what has been done. Incidents are created automatically by monitors and failed production deployments, or manually from a log line or the Incidents page.
+
+## Severity
+
+| Severity | Use when | Default notification |
+| --- | --- | --- |
+| **Critical** | Production is down or data is at risk | Page on-call immediately |
+| **High** | Major feature degraded for many users | Slack + page after 10 minutes unacknowledged |
+| **Medium** | Partial degradation or elevated errors | Slack |
+| **Low** | Cosmetic, or an automated warning such as a failed certificate renewal | Email digest |
+
+## Lifecycle
+
+```
+Open ──▶ Acknowledged ──▶ Resolved
+                 ▲                │
+                 └──── Reopen ────┘
+```
+
+- **Open** — created but nobody has claimed it. The sidebar badge and header bell count these.
+- **Acknowledged** — someone is on it. Acknowledging stops escalation.
+- **Resolved** — fixed. Resolving notifies subscribers and closes any linked monitor alert.
+
+## The Incidents page
+
+The left column lists incidents filtered to **Active** (open + acknowledged), **Resolved**, or **All**. Select one to see its detail on the right: severity and status badges, the affected service, start and resolve times, an assignee picker, and the timeline.
+
+## Timeline
+
+Every status change, assignment, and posted update appears in the timeline with its author and time. Use the text box at the bottom to post an update; keep updates short and factual, and include deployment IDs so readers can jump to the [build](/deployments/overview) involved.
+
+## Linking
+
+Incident IDs (`inc_204`) are referenced from:
+
+- The project **Overview** alert banner when a project is **Down**
+- Notification bell entries and `?focus=<id>` deep links
+- [Webhook](/organization/webhooks) events `incident.opened` and `incident.resolved`
+- The [audit log](/organization/audit-log) as `incident.resolve`
+
+## Postmortems
+
+After resolving a **Critical** or **High** incident, Orbit prompts for a postmortem on the timeline. Postmortems are optional but are exported with the incident in the monthly reliability report.

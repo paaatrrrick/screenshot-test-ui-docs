@@ -1,0 +1,46 @@
+---
+title: "Webhook events"
+description: "Every event type Orbit can deliver, with the fields in its data object."
+icon: "list"
+---
+
+All events share the envelope described in [Webhooks](/organization/webhooks): `id`, `type`, `createdAt`, and `data`. The tables below list `data` fields per type.
+
+## Deployments
+
+| Event | Fired when | `data` |
+| --- | --- | --- |
+| `deployment.created` | A build is queued | `deploymentId`, `projectSlug`, `environment`, `commit`, `branch`, `author` |
+| `deployment.ready` | A build succeeds and is serving | above + `url`, `durationSec` |
+| `deployment.error` | A build fails | above + `errorLine` |
+| `deployment.canceled` | A build is canceled | above + `canceledBy` |
+
+## Monitors and incidents
+
+| Event | Fired when | `data` |
+| --- | --- | --- |
+| `monitor.down` | A monitor reaches its failure threshold | `monitorId`, `name`, `url`, `regions[]`, `status`, `latencyMs` |
+| `monitor.recovered` | A down monitor passes again | `monitorId`, `name`, `downForSec` |
+| `incident.opened` | An incident is created | `incidentId`, `title`, `severity`, `service`, `assignee` |
+| `incident.resolved` | An incident is resolved | `incidentId`, `title`, `resolvedBy`, `durationSec` |
+
+## Feature flags
+
+| Event | Fired when | `data` |
+| --- | --- | --- |
+| `flag.created` | A flag is created | `key`, `name`, `enabled`, `environments`, `rollout` |
+| `flag.updated` | Any part of a flag changes | above + `changes[]` with `field`, `from`, `to` |
+| `flag.deleted` | A flag is deleted | `key`, `deletedBy` |
+
+## Organization
+
+| Event | Fired when | `data` |
+| --- | --- | --- |
+| `member.added` | An invitation is accepted | `memberId`, `email`, `role` |
+| `member.removed` | A member is removed | `memberId`, `email`, `removedBy` |
+| `api_key.created` | A key is created | `keyId`, `name`, `prefix`, `scopes[]`, `expiresAt` |
+| `audit.entry` | Any audit log entry is written | The full audit row |
+
+## Test events
+
+`ping` is sent when an endpoint is created and by **Send test**. Its `data` is `{ "endpointId": "wh_…" }`.

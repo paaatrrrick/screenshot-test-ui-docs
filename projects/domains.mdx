@@ -16,6 +16,14 @@ Every project is reachable at `<slug>.orbit.app` from its first deployment. The 
 
 While a domain is unverified the table shows **Pending DNS** in amber. Hover it to see the exact record Orbit is looking for.
 
+## How traffic reaches a deployment
+
+Custom domains resolve to Orbit's anycast edge. Each edge location terminates TLS and load-balances requests across the healthy instances of your production deployment in the project's region, the same way a conventional NAT-based load-balancing cluster does.
+
+<Frame caption="A NAT load-balancing cluster: one public address in front of several real servers. Diagram: Wikimedia Commons, CC BY-SA 4.0.">
+  <img src="/images/misc/load-balancing-cluster.svg" alt="Diagram of a load balancer distributing requests to backend servers" />
+</Frame>
+
 ## SSL
 
 Certificates are issued through Let's Encrypt as soon as DNS verifies, then renewed automatically 30 days before expiry. The **SSL** column shows one of:

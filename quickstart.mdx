@@ -9,7 +9,7 @@ This guide walks through importing a repository, configuring the build, and watc
 ## Before you begin
 
 - An Orbit account with the **Developer** role or higher. See [Roles and permissions](/reference/roles-and-permissions).
-- A Git repository on GitHub. Private repositories require the Orbit GitHub app, which an **Admin** can install from [Settings → Integrations](/organization/settings#integrations).
+- <img src="/images/logos/github.svg" alt="GitHub" width="16" height="16" style={{ display: "inline", verticalAlign: "text-bottom", margin: 0 }} /> A Git repository on GitHub. Private repositories require the Orbit GitHub app, which an **Admin** can install from [Settings → Integrations](/organization/settings#integrations).
 
 ## Create a project
 
@@ -23,10 +23,11 @@ This guide walks through importing a repository, configuring the build, and watc
   <Step title="Configure the build">
     Pick a framework preset, a region, and confirm the build command and output directory. Presets fill in sensible defaults; you can change them later in [project settings](/projects/settings).
 
+    <img src="/images/logos/nextdotjs.svg" alt="Next.js" width="16" height="16" style={{ display: "inline", verticalAlign: "text-bottom", margin: 0 }} /> Next.js projects are detected automatically from `next.config.*`; the preset enables ISR and image optimization.
+
     <Frame caption="Step 2 of the New project dialog: framework preset, region, and build settings.">
       <img src="/images/screenshots/placeholder-new-project-step-2.png" alt="New project dialog on the configure build step" />
     </Frame>
-    {/* Optional extra screenshot — `/projects?new=1`, click Continue once. Not one of the 12 required captures. */}
   </Step>
   <Step title="Review and create">
     Confirm the summary and click **Create project**. Orbit queues the first production deployment immediately.

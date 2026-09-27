@@ -11,19 +11,26 @@ Every deployment keeps its complete build output. Open a deployment and stay on 
 When a build fails, the deployment page shows a red banner with the first error line, and the log panel highlights every `ERROR` line in red. Warnings are amber; `DEBUG` lines are dimmed.
 
 <Frame caption="A failed build. The type error on line 11 caused the build command to exit with status 1.">
-  <img src="/images/screenshots/03-deployment-build-error.png" alt="Build log terminal showing a TypeScript error followed by build failed" />
+  <img src="/3.png" alt="Build log terminal showing a TypeScript error followed by build failed" />
 </Frame>
-{/* SCREENSHOT #3 — `/deployments/dpl_7d3m0q`, scroll to and crop the `[data-testid="build-logs"]` panel. See SCREENSHOTS.md. */}
 
 Common failure patterns:
 
 | Log line | Likely cause |
 | --- | --- |
-| `error TS2339` / `error TS2322` | A type error. Run `tsc --noEmit` locally to reproduce |
+| `error TS2339` / `error TS2322` | A type error. Run `tsc --noEmit` locally to reproduce (see below) |
 | `Command "… build" exited with 1` | The build script failed; look at the lines immediately above |
 | `ERR_PNPM_OUTDATED_LOCKFILE` | `pnpm-lock.yaml` is out of date; run `pnpm install` and commit |
 | `Module not found` | A dependency is missing from `package.json` or the import path is wrong on a case-sensitive filesystem |
 | `Build exceeded maximum duration` | The build ran past 45 minutes. Check for a hung step or enable caching |
+
+### Reproducing locally
+
+Most build failures reproduce in a plain terminal with the same command Orbit ran. Check the **Build command** in [project settings](/projects/settings) and run it from the repository root.
+
+<Frame caption="A GNOME Terminal session. Any shell works; Orbit builds run under bash on Linux. Image: Wikimedia Commons, GPL.">
+  <img src="/images/misc/gnome-terminal.png" alt="A Linux terminal window with a bash prompt" />
+</Frame>
 
 ## Toolbar
 

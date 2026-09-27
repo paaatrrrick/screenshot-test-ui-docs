@@ -21,9 +21,8 @@ The same key can exist more than once with different environment targets, which 
 Variables marked **Sensitive** are masked in the table and omitted from API responses and exported `.env` files. Members with the **Developer** role or higher can reveal a value with the eye icon; each reveal is recorded in the [audit log](/organization/audit-log).
 
 <Frame caption="The Environment tab with STRIPE_SECRET_KEY revealed. Other sensitive values stay masked.">
-  <img src="/images/screenshots/04-env-vars-revealed.png" alt="Environment variables table with one secret value revealed and the others masked" />
+  <img src="/4.png" alt="Environment variables table with one secret value revealed and the others masked" />
 </Frame>
-{/* SCREENSHOT #4 — `/projects/atlas-api?tab=environment`, click the reveal button for STRIPE_SECRET_KEY, then crop to `[data-testid="env-vars"]`. See SCREENSHOTS.md. */}
 
 <Warning>
 Revealed values are visible until you navigate away or click the eye icon again. Don't leave a revealed secret on screen during a screen share.

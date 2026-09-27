@@ -13,6 +13,10 @@ Orbit creates a deployment when:
 - The CLI runs `orbit deploy`
 - An API key with `deployments:write` calls the deployments endpoint
 
+<Frame caption="The general shape of a containerized continuous-delivery flow. Orbit implements the build, registry, and deploy stages for you. Diagram: Wikimedia Commons, CC BY-SA 2.5.">
+  <img src="/images/misc/continuous-delivery-concept.png" alt="Conceptual diagram of a containerized continuous delivery pipeline" />
+</Frame>
+
 Commits to the production branch become **production** deployments. Everything else is a **preview** with a URL like `atlas-web-git-feat-pricing-v2.orbit.app`. Projects can also define a **staging** branch in settings.
 
 ## Statuses

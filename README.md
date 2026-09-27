@@ -2,7 +2,7 @@
 
 Mintlify documentation for [Orbit](https://github.com/paaatrrrick/screenshot-test-ui), a mock developer platform used to exercise documentation screenshot automation.
 
-Every `<Frame>` pointing at `/images/screenshots/*.png` is a placeholder. [`SCREENSHOTS.md`](./SCREENSHOTS.md) lists all twelve captures with their page, selector, preparatory steps, and the automation edge case each one covers.
+Product screenshots live at the repo root as `1.png`–`12.png`. Non-product images (icons, diagrams, stock photos, third-party screenshots) live under `images/` with sources in `images/ATTRIBUTION.md`.
 
 ## Preview locally
 
